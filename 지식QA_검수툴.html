@@ -1150,10 +1150,10 @@ const MAPPING_COLORS = [
 ];
 
 const KEYBOARD_SHORTCUTS = [
-  { keys: ["Ctrl", "↵"], desc: "검수 제출" },
+  { keys: ["⌘", "↵"], desc: "검수 제출" },
   { keys: ["N"], desc: "새 연결 만들기" },
   { keys: ["Ctrl", "Z"], desc: "매핑 실행 취소" },
-  { keys: ["J", "K"], desc: "이전(J) / 다음(K) 작업" },
+  { keys: ["J", "K"], desc: "이전 / 다음 작업" },
   { keys: ["1"], desc: "통과" },
   { keys: ["2"], desc: "불통 (오류 구간 드래그 활성화)" },
   { keys: ["3"], desc: "수정완료" },
@@ -1381,7 +1381,6 @@ const DEID_TYPES = [
     questions: [
       { id: 'alive',     text: '생존해 있는 인물인가?',              hint: '유명인·공인 여부 상관없이 실명은 마스킹 대상' },
       { id: 'negative',  text: '부정적 맥락(범죄·혐오·비방)과 연관?', hint: '사망자·가명도 포함' },
-      { id: 'infer',     text: '이름 없이도 신원이 유추되는가?',       hint: '예: 직함+성씨 조합' },
       { id: 'sensitive', text: '민감 정보(정치 성향·의료 기록 등) 포함?', hint: '' },
       { id: 'private',   text: '공인·연예인의 사생활 내용인가?',       hint: '' },
     ],
@@ -2154,10 +2153,10 @@ function ReviewFooter({ review, onChange, onSubmit, mappingCount, pendingSuggest
       ),
       React.createElement('button', {
         className: 'btn-primary', disabled: !canSubmit, onClick: onSubmit,
-        title: canSubmit ? '제출 (Ctrl+↵)' : blocks[0],
+        title: canSubmit ? '제출 (⌘↵)' : blocks[0],
       },
         '검수 제출',
-        React.createElement('kbd', null, 'Ctrl+↵')
+        React.createElement('kbd', null, '⌘↵')
       )
     ),
     reasonRequired && React.createElement('div', { className: 'review-detail' },
@@ -2961,8 +2960,8 @@ function Workspace({ initTasks, workerId, initFolderHandle }) {
       if (e.key === 'Escape') { setActiveMappingId(null); setShowShortcuts(false); return; }
       if (e.key === '?') { setShowShortcuts(true); return; }
       if (e.key === 'n' || e.key === 'N') { createNewMapping(); e.preventDefault(); return; }
-      if (e.key === 'j' || e.key === 'J') { navigateTask('prev'); return; }
-      if (e.key === 'k' || e.key === 'K') { navigateTask('next'); return; }
+      if (e.key === 'j' || e.key === 'J') { navigateTask('next'); return; }
+      if (e.key === 'k' || e.key === 'K') { navigateTask('prev'); return; }
       if (e.key === '1') { setTasks(prev => { const t = prev.find(x => x.id === currentId); if (t) return prev.map(x => x.id === currentId ? { ...x, review: { ...(x.review||{}), status: 'pass' } } : x); return prev; }); return; }
       if (e.key === '2') { setTasks(prev => prev.map(x => x.id === currentId ? { ...x, review: { ...(x.review||{}), status: 'fail' } } : x)); return; }
       if (e.key === '3') { setTasks(prev => prev.map(x => x.id === currentId ? { ...x, review: { ...(x.review||{}), status: 'modified' } } : x)); return; }

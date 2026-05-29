@@ -2566,51 +2566,94 @@
     <section class="sec">
       <span class="sec-num green">02 검수 상세 기준 · 비식별화</span>
       <h2>개인정보는 꼼꼼히</h2>
-      <p class="sec-sub">QA에 비식별화가 필요한 요소가 포함되어 있는지 판단해요. 침해 여지가 있으면 <strong>불통 처리</strong>됩니다.</p>
+      <p class="sec-sub">QA에 비식별화가 필요한 요소가 있는지 <strong>판단</strong>하는 단계예요. 대상이 하나라도 있으면 <strong>불통 처리</strong>합니다.</p>
+
+      <div class="tcard bg-amber">
+        <div class="tcard-row">
+          <div class="tcard-emoji">📢</div>
+          <div class="tcard-body">
+            <h4>왜 이렇게까지 꼼꼼히 보나요?</h4>
+            <p>이 데이터는 <strong>외부에 공개되는 공개 데이터</strong>이고, 공개 후엔 <strong>상업적 활용을 포함해 용도를 예측할 수 없어요.</strong> 그래서 민감·개인정보가 새어 나가지 않도록 검수 단계에서 반드시 걸러야 합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h3">무엇을 비식별화 대상으로 보나요</h3>
 
       <div class="pii-grid">
         <div class="pii">
           <div class="pii-emoji">👤</div>
-          <h4>인물</h4>
-          <p>실명·별명·직책으로 특정인을 식별할 수 있는 정보</p>
+          <h4>인물 (개인정보 · 민감정보)</h4>
+          <p>특정 개인을 식별·유추할 수 있는 정보</p>
           <ul>
-            <li>일반인 실명·가족·지인 이름</li>
-            <li>비방·범죄 연루 인물 언급</li>
-            <li>공인이라도 <strong>사적 영역</strong>(질병·가족사)</li>
+            <li><strong>생존 인물만</strong> 대상 — 이미 <strong>사망한 인물·역사적 인물은 식별 대상 아님</strong></li>
+            <li>이름뿐 아니라 <strong>맥락으로 유추 가능</strong>하면 대상 (예: "헌재소장 권한대행이 윤 대통령 측…")</li>
+            <li><strong>의료·정치성향</strong> 등 민감정보, 부정적 묘사·혐오·범죄 연루 문맥</li>
           </ul>
-          <div class="pii-eg">예) "○○동 거주 김○○씨" → 마스킹 필요</div>
+          <div class="pii-eg">예) "○○동 거주 김○○씨" / "○○씨 우울증 치료" → 대상</div>
         </div>
         <div class="pii">
           <div class="pii-emoji">🏢</div>
-          <h4>기업 · 단체</h4>
-          <p>식별 가능한 회사·기관·조직명과 구성원</p>
+          <h4>단체 · 기업</h4>
+          <p>그 자체는 개인정보 아니지만…</p>
           <ul>
-            <li>특정 기업의 비방·범죄 연루 서술</li>
-            <li>단체명 + 내부 인물 실명 동시 노출</li>
-            <li>중립적 사실 서술은 허용</li>
+            <li><strong>비방·범죄 연루·사회 이슈</strong> 맥락이면 대상 (사실 정보는 OK)</li>
+            <li>단체명에 <strong>사람 이름 포함</strong> 시 그 이름 대상 (경남시 최서연센터 → 경남시 OOO센터)</li>
+            <li>익명 커뮤니티명·URL도 문제 소지 있으면 대상</li>
           </ul>
-          <div class="pii-eg">예) "△△기업 박○○ 대표의 횡령" → 마스킹 필요</div>
+          <div class="pii-eg">예) "○○기업은 사기 집단" (비방) → 대상</div>
         </div>
         <div class="pii">
           <div class="pii-emoji">📍</div>
-          <h4>장소 · 연락처</h4>
-          <p>개인을 추적할 수 있는 위치·연락 정보</p>
+          <h4>지리 · 주소 · 연락처</h4>
+          <p>개인을 추적할 수 있는 정보</p>
           <ul>
-            <li>세부 주소(동·번지·호수)·좌표</li>
-            <li>전화·이메일·SNS·URL</li>
-            <li>공공기관 대표 정보는 허용</li>
+            <li>전화번호는 <strong>뒷자리</strong>가 대상 (010-1234-OOOO)</li>
+            <li>주소는 <strong>가장 세부 단위</strong>(동·번지)가 대상</li>
+            <li>특정 지역을 직접 비난하는 목적이면 지역명도 대상</li>
           </ul>
-          <div class="pii-eg">예) "서울 강남구 ○○동 123-45번지" → 마스킹</div>
+          <div class="pii-eg">예) "서울 강남구 ○○동 123-45" → 세부 단위 대상</div>
         </div>
       </div>
+
+      <div class="tcard bg-green" style="margin-top:14px">
+        <div class="tcard-row">
+          <div class="tcard-emoji">✅</div>
+          <div class="tcard-body">
+            <h4>이런 경우는 대상이 아니에요</h4>
+            <p><strong>사망한 인물·역사적 인물</strong>은 식별 정보(이름·출생지 등)만으로는 대상이 아니에요. <em style="font-style:normal;color:var(--text-3)">(단, 비방·혐오 문맥이면 고인이라도 대상)</em></p>
+            <p><strong>소설 속 등장인물의 가명</strong>은 마스킹하지 않아요. 공인의 <strong>공적 발언·활동</strong>, 기업의 <strong>중립적 사실 정보</strong>도 그대로 둬도 됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <details class="ex-card">
+        <summary>
+          <span class="ex-title">인물 비식별화 — 대상 vs 비대상 예시</span>
+          <svg class="ex-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ex-body">
+          <div class="qa-block"><span class="qa-role a" style="background:var(--red)">✕</span><p><strong>대상 (불통)</strong> — "○○고등학교 3학년 김민수 학생이 전국 대회에서 1등을 했다."<br><em style="font-style:normal;color:var(--text-3)">생존 일반인의 실명+소속 → 식별 가능</em></p></div>
+          <div class="qa-block"><span class="qa-role a" style="background:var(--red)">✕</span><p><strong>대상 (불통)</strong> — "현직 ○○부 장관이 과거 우울증 치료를 받았다."<br><em style="font-style:normal;color:var(--text-3)">생존 공인이라도 의료=민감정보·사적영역</em></p></div>
+          <div class="qa-block"><span class="qa-role a" style="background:var(--green)">✓</span><p><strong>비대상 (통과)</strong> — "세종대왕은 1397년 한양에서 태어났다."<br><em style="font-style:normal;color:var(--text-3)">사망한 역사적 인물의 식별 정보 → 대상 아님</em></p></div>
+          <div class="qa-block"><span class="qa-role a" style="background:var(--green)">✓</span><p><strong>비대상 (통과)</strong> — "대통령이 신년 기자회견에서 ~라고 발표했다."<br><em style="font-style:normal;color:var(--text-3)">공인의 공적 활동·발언 → 대상 아님</em></p></div>
+        </div>
+      </details>
+
+      <h3 class="h3">판단 기본 원칙</h3>
+      <ol class="clist">
+        <li><span class="num" style="background:var(--green)">1</span><div><h5>생존 인물만 대상 — 이미 사망한 인물은 제외</h5><p>식별 정보는 <strong>생존 인물</strong>만 비식별화 대상이에요. <strong>이미 사망한 인물·역사적 인물은 대상이 아닙니다.</strong> (단, 비방·혐오 문맥은 고인이라도 대상)</p></div></li>
+        <li><span class="num" style="background:var(--green)">2</span><div><h5>애매하면 대상으로</h5><p>비식별화가 필요한지 헷갈리면 <strong>보수적으로 대상(=불통)</strong>으로 판단해요.</p></div></li>
+        <li><span class="num" style="background:var(--green)">3</span><div><h5>이름이 없어도 특정되면 대상</h5><p>이름이 직접 없더라도 <strong>직책·관계·맥락으로 특정 개인이 유추되면</strong> 비식별화 대상으로 봐요.</p></div></li>
+      </ol>
 
       <div class="tcard bg-red" style="margin-top:14px">
         <div class="tcard-row">
           <div class="tcard-emoji">🚫</div>
           <div class="tcard-body">
             <h4>비식별화 대상이 있으면 → 불통</h4>
-            <p>위 세 유형(인물 · 기업/단체 · 장소/연락처) 중 <strong>비식별화가 필요한 요소가 하나라도 포함되어 있으면 불통으로 처리</strong>해주세요.</p>
-            <p>침해 여부가 애매하더라도 보수적으로 판단합니다. 학습 데이터에는 개인정보가 들어가지 않는 것이 가장 안전해요.</p>
+            <p>위 유형 중 <strong>비식별화가 필요한 요소가 하나라도 포함되어 있으면 불통으로 처리</strong>해주세요.</p>
+            <p>공개·상업적 활용 가능성을 고려해, 애매하면 항상 보수적으로 판단합니다.</p>
           </div>
         </div>
       </div>
@@ -2624,39 +2667,39 @@
 
       <div class="quiz" id="quiz">
         <div class="quiz-item" data-answer="fail">
-          <div class="quiz-q"><span class="quiz-n">Q1</span><p>원천에 <b>"○○ 가수가 4집 음반을 혼자서 완성했다"</b>고만 적혀 있는데, 답변이 <b>"○○ 가수가 음반의 총괄 역할을 맡았다"</b>고 했어요.</p></div>
+          <div class="quiz-q"><span class="quiz-n">Q1</span><p>원천: <b>"이순신은 명량해전에서 13척의 배로 일본 수군을 막아냈다."</b> 답변: <b>"이순신은 13척으로 일본군을 막아냈는데, 이는 그가 조선 최고의 명장임을 증명한다."</b></p></div>
           <div class="quiz-opts">
             <button class="quiz-opt" data-v="pass">통과</button>
             <button class="quiz-opt" data-v="fail">불통</button>
           </div>
-          <div class="quiz-fb" data-ok="정답! 혼자 만든 것과 '총괄 역할'은 달라요. 원천에 없는 역할 단정 = 논리 비약 → 불통." data-no="다시 생각해봐요. 원천은 '혼자 완성'까지만 보장해요. '총괄 역할'은 원천에 없는 단정이라 논리 비약 → 불통이에요."></div>
+          <div class="quiz-fb" data-ok="정답! 사실(13척 방어)은 맞지만 '최고의 명장임을 증명한다'는 원천에 없는 평가·일반화예요. 논리 비약 → 불통." data-no="앞 사실은 맞지만 '조선 최고의 명장임을 증명한다'가 문제예요. 원천이 보장하지 않는 평가로 비약했으니 불통입니다."></div>
         </div>
 
-        <div class="quiz-item" data-answer="fail">
-          <div class="quiz-q"><span class="quiz-n">Q2</span><p>질문은 <b>"A 작품의 특징"</b>만 물었는데, 답변이 <b>"따라서 A는 B보다 우월하다"</b>는 결론까지 덧붙였어요.</p></div>
+        <div class="quiz-item" data-answer="pass">
+          <div class="quiz-q"><span class="quiz-n">Q2</span><p>원천: <b>"A제품은 출시 첫날 100만 대가 팔렸고, 이는 역대 최단기간 100만 판매 기록이다."</b> 답변: <b>"A제품은 출시 첫날 100만 대가 팔리며 큰 인기를 끌었다."</b> ('큰 인기'는 원천에 직접 없음)</p></div>
           <div class="quiz-opts">
             <button class="quiz-opt" data-v="pass">통과</button>
             <button class="quiz-opt" data-v="fail">불통</button>
           </div>
-          <div class="quiz-fb" data-ok="정답! 묻지도 않은 비교·우열 결론으로 범위를 넓혔어요. 확대 해석 → 불통." data-no="확대 해석이에요. Q는 특징만 물었는데 비교·우열 결론까지 확장했으니 불통이에요."></div>
+          <div class="quiz-fb" data-ok="정답! '큰 인기'는 원천에 직접 없지만 '첫날 100만·최단기간 기록'으로 충분히 유추 가능한 합리적 추론이에요 → 통과." data-no="이건 통과예요. '큰 인기'는 원천에 단어로 없지만 '첫날 100만 대·역대 최단기간 기록'에서 합리적으로 유추되는 범위라 비약이 아니에요."></div>
         </div>
 
-        <div class="quiz-item" data-answer="keep">
-          <div class="quiz-q"><span class="quiz-n">Q3</span><p>기존 카테고리는 <b>역사</b>. 원천은 <b>코로나19의 역사적 전개</b> 문서이고, Q·A는 의학적 사실(팬데믹 선언일)을 다뤄요. 카테고리를 어떻게 할까요?</p></div>
+        <div class="quiz-item" data-answer="edit">
+          <div class="quiz-q"><span class="quiz-n">Q3</span><p>기존 카테고리는 <b>인물</b>. 원천은 <b>피카소의 큐비즘 화풍</b>을 분석한 미술 문서이고, Q·A도 <b>미술 사조</b>를 다뤄요. 카테고리를 어떻게 할까요?</p></div>
           <div class="quiz-opts">
-            <button class="quiz-opt" data-v="edit">건강/의학으로 수정</button>
-            <button class="quiz-opt" data-v="keep">역사 그대로 유지</button>
+            <button class="quiz-opt" data-v="keep">인물 그대로 유지</button>
+            <button class="quiz-opt" data-v="edit">예술로 수정</button>
           </div>
-          <div class="quiz-fb" data-ok="정답! QA·원천 중 하나라도 기존 카테고리에 맞으면 유지해요. 원천이 역사 문서이므로 그대로 둬요." data-no="유지가 맞아요. QA·원천 둘 중 하나라도 기존 카테고리에 해당하면 수정하지 않아요. 원천이 역사 문서니까요."></div>
+          <div class="quiz-fb" data-ok="정답! 기존 '인물'은 5개 기본 카테고리에 없고, 원천·QA 모두 미술(예술) 내용이에요. 둘 다 안 맞으니 예술로 수정." data-no="수정이 맞아요. '인물'은 기본 카테고리에 없고 원천·QA 모두 미술 내용이라, 둘 다 기존과 안 맞으니 예술로 수정해요."></div>
         </div>
 
-        <div class="quiz-item" data-answer="fail">
-          <div class="quiz-q"><span class="quiz-n">Q4</span><p>답변에 <b>일반인의 실명과 거주지("○○동 거주 김○○씨")</b>가 그대로 들어 있어요. 어떻게 처리해야 할까요?</p></div>
+        <div class="quiz-item" data-answer="pass">
+          <div class="quiz-q"><span class="quiz-n">Q4</span><p>답변에 <b>"세종대왕은 1397년 한양에서 태어났으며 훈민정음을 창제했다"</b>고 적혀 있어요. 인물의 실명·출생지·출생연도가 들어 있는데, 비식별화 대상일까요?</p></div>
           <div class="quiz-opts">
-            <button class="quiz-opt" data-v="pass">그대로 통과</button>
+            <button class="quiz-opt" data-v="pass">통과 (대상 아님)</button>
             <button class="quiz-opt" data-v="fail">불통 (비식별화 대상)</button>
           </div>
-          <div class="quiz-fb" data-ok="정답! 개인 식별 정보가 있으면 비식별화 대상 → 불통 처리해요." data-no="비식별화 대상이에요. 일반인의 실명·거주지가 노출되면 반드시 불통으로 처리해야 해요."></div>
+          <div class="quiz-fb" data-ok="정답! 식별 정보는 생존 인물만 대상이에요. 사망한 역사적 인물(세종대왕)은 비식별화 대상이 아니라 통과예요." data-no="생존 인물만 대상이에요. 세종대왕은 사망한 역사적 인물이라 식별 정보가 있어도 대상이 아니에요 → 통과. (단, 비방·혐오 문맥이면 고인이라도 대상)"></div>
         </div>
 
         <div class="quiz-result">
