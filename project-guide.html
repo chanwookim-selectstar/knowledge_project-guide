@@ -2606,13 +2606,13 @@
         <div class="pii">
           <div class="pii-emoji">📍</div>
           <h4>지리 · 주소 · 연락처</h4>
-          <p>개인을 추적할 수 있는 정보</p>
+          <p>특정 개인과 연결될 때만 대상</p>
           <ul>
-            <li>전화번호는 <strong>뒷자리</strong>가 대상 (010-1234-OOOO)</li>
-            <li>주소는 <strong>가장 세부 단위</strong>(동·번지)가 대상</li>
-            <li>특정 지역을 직접 비난하는 목적이면 지역명도 대상</li>
+            <li><strong>주소·지명 자체는 대상 아님</strong> — 동·번지까지 적혀 있어도 그것만으론 통과</li>
+            <li><strong>이름·맥락으로 특정인의 거주지·연락처</strong>를 가리키면 대상</li>
+            <li>개인 <strong>전화번호·이메일</strong>처럼 직접 연락정보는 대상</li>
           </ul>
-          <div class="pii-eg">예) "서울 강남구 ○○동 123-45" → 세부 단위 대상</div>
+          <div class="pii-eg">예) "강남구 ○○동" (단순 지명) → 통과 · "김○○씨가 사는 ○○동 123-45" → 대상</div>
         </div>
       </div>
 
@@ -2623,13 +2623,14 @@
             <h4>이런 경우는 대상이 아니에요</h4>
             <p><strong>사망한 인물·역사적 인물</strong>은 식별 정보(이름·출생지 등)만으로는 대상이 아니에요. <em style="font-style:normal;color:var(--text-3)">(단, 비방·혐오 문맥이면 고인이라도 대상)</em></p>
             <p><strong>소설 속 등장인물의 가명</strong>은 마스킹하지 않아요. 공인의 <strong>공적 발언·활동</strong>, 기업의 <strong>중립적 사실 정보</strong>도 그대로 둬도 됩니다.</p>
+            <p><strong>단순 지명·주소·기관 주소</strong>는 동·번지까지 적혀 있어도 대상이 아니에요. <em style="font-style:normal;color:var(--text-3)">(어디까지 가리느냐는 이후 마스킹 단계의 문제이고, 작업자는 "특정 개인과 연결되는지"만 판단해요.)</em></p>
           </div>
         </div>
       </div>
 
       <details class="ex-card">
         <summary>
-          <span class="ex-title">인물 비식별화 — 대상 vs 비대상 예시</span>
+          <span class="ex-title">비식별화 — 대상 vs 비대상 예시</span>
           <svg class="ex-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
         <div class="ex-body">
@@ -2637,6 +2638,8 @@
           <div class="qa-block"><span class="qa-role a" style="background:var(--red)">✕</span><p><strong>대상 (불통)</strong> — "현직 ○○부 장관이 과거 우울증 치료를 받았다."<br><em style="font-style:normal;color:var(--text-3)">생존 공인이라도 의료=민감정보·사적영역</em></p></div>
           <div class="qa-block"><span class="qa-role a" style="background:var(--green)">✓</span><p><strong>비대상 (통과)</strong> — "세종대왕은 1397년 한양에서 태어났다."<br><em style="font-style:normal;color:var(--text-3)">사망한 역사적 인물의 식별 정보 → 대상 아님</em></p></div>
           <div class="qa-block"><span class="qa-role a" style="background:var(--green)">✓</span><p><strong>비대상 (통과)</strong> — "대통령이 신년 기자회견에서 ~라고 발표했다."<br><em style="font-style:normal;color:var(--text-3)">공인의 공적 활동·발언 → 대상 아님</em></p></div>
+          <div class="qa-block"><span class="qa-role a" style="background:var(--green)">✓</span><p><strong>비대상 (통과)</strong> — "세종대왕릉은 경기도 여주시 능서면에 있다."<br><em style="font-style:normal;color:var(--text-3)">특정 개인과 연결되지 않는 단순 주소·지명 → 대상 아님</em></p></div>
+          <div class="qa-block"><span class="qa-role a" style="background:var(--red)">✕</span><p><strong>대상 (불통)</strong> — "김○○씨가 거주하는 ○○동 123-45에서…"<br><em style="font-style:normal;color:var(--text-3)">이름·맥락으로 특정인의 거주지를 지목 → 대상</em></p></div>
         </div>
       </details>
 
